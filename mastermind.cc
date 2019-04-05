@@ -108,7 +108,19 @@ int Mastermind::optimalegok (bool consistent, int &aantalstanden,
                              char optgok[MaxNrGaatjes+1])
 {
   // TODO: implementeer deze methode
+	vector<int> wit_, rood_;
+	int i,j;
+	for (i = 0; i < gaatjes; i++) {
+		rood_.push_back(i);
+		for (j = 0; j < kleuren; ++j) {
+			wit_.push_back (j);
+			//if (cons (zet) )
+			wit_.clear();
+		}
+	rood_.clear();
+	}
 
+	witCheck ();
   return 0;
 
 }  // optimalegok
@@ -120,6 +132,7 @@ int Mastermind::goedegok (bool consistent, string &goedegok)
   // TODO: implementeer deze methode
   string zet = "";
   int i, j, l, p, o, aantal_codes = 0, aantal2 = 100000, rood_aantal = 0;
+
 
   for (l = 0; l < kleuren; l++) {
     if (gaatjes < 5) l = kleuren;
@@ -247,5 +260,73 @@ int Mastermind::mogelijkheden (int rood_aantal) {
   return pow (kleuren, gaatjes - rood_aantal);
 }
 
+void Mastermind::doezet () {
+
+int i, j;
+vector<int> zet;
+bool ongoing = true, check = true;
+
+	for (int k = 0; k < gaatjes; k++) zet.push_back(0); //gaatjes is 3 zet[0] = 0, zet[1] = 0, zet[2] = 0;		
+
+	while(ongoing){
+		check = true;
+		for(i=0;i<kleuren;i++){
+			zet[0]= i;
+			cout << zet[0] << zet[1] << zet[2] << endl;
+			//doezet();
+		}
+			j = 1;
+			while(check) {
+
+				if(zet[j] < kleuren - 1) {
+					zet[j]++;
+					check = false;
+				
+				} else {
+						 if(j < gaatjes - 1) {
+							j++;
+			
+							}
+						 
+						 else {check = false; ongoing = false; zet.clear(); }
+		 
+	}
+}
+   
+
+}
+
+
+
+}
+
+//****************************************************************************
+
+
+bool Mastermind::witCheck () {
+vector<int> opslag;
+string zet, test;
+opslag.push_back(-1);
+bool erin = false;
+int teller = 0;
+int j,i,k;
+	for (i = 0; i < 2; i++) {
+		for (j = 0; j < 2; j++) {
+		if (zet[i] == test[j]){ 
+			for(k=0;k<=teller;k++){
+       if (opslag[k] == zet[i])
+			   j=0;k=teller;erin = true;
+}
+			if(erin){
+				opslag[teller] = zet[i];teller++;
+				erin = false;
+		}		
+	
+	} 
+}
+cout << " " 
+
+}
+}
 
 #endif

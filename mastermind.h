@@ -79,6 +79,8 @@ class Mastermind
     vector<string> guess;
     vector<int> wit, rood;
 
+	
+
 
 
     // Controleerd of de code geldig is
@@ -96,6 +98,7 @@ class Mastermind
     bool cons (string zet, int &rood_aantal);
 
     int mogelijkheden (int rood_aantal);
+		void doezet ();
 
 };
 
