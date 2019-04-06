@@ -231,25 +231,28 @@ int Mastermind::elementOf (string test, int elem) {
 
 //*************************************************************************
 
-bool Mastermind::cons (string zet, int &rood_aantal) {
+bool Mastermind::cons (string zet, int &aantal) {
   unsigned int i;
-
+  int wit_,rood_;
+  int i,j,k;
   for (i = 0; i < guess.size (); i++) {
     if (zet == guess[i]) return false;
   }
+for(k=0; k< guess.size(); k++){
 
-  for (i = 0; i < guess.size (); i++) {
-    int wit_zet = aantalwit (zet, guess[i]);
-    int rood_zet = aantalrood (zet, guess[i]);
-    if (wit_zet == wit[i]) {
-      if (rood_zet == rood[i]) {
-        rood_aantal = rood_zet;
+	for (i = 0; i < gaatjes; i++) {
+		rood_.push_back(i);
+		for (j = 0; j < kleuren; ++j) {
+			wit_.push_back (j);
+			rood_ = roodCheck(zet,guess[k]);
+      wit_ = witCheck(zet,guess[k]);
 
-        return true;
-      }
-    }
-  }
-  return false;
+			wit_.clear();
+		}
+	rood_.clear();
+	}
+}
+  return true;
 }
 
 //*************************************************************************
@@ -260,18 +263,26 @@ int Mastermind::mogelijkheden (int rood_aantal) {
   return pow (kleuren, gaatjes - rood_aantal);
 }
 
-void Mastermind::doezet () {
 
-int i, j;
+
+void Mastermind::doezet () {
+string str;
+int i, j, aantal;
 vector<int> zet;
 bool ongoing = true, check = true;
 
-	for (int k = 0; k < gaatjes; k++) zet.push_back(0); //gaatjes is 3 zet[0] = 0, zet[1] = 0, zet[2] = 0;		
+	for (int k = 0; k < gaatjes; k++) zet.push_back(0); //gaatjes is 3 zet[0] = 0, zet[1] = 0, zet[2] = 0;
 
 	while(ongoing){
 		check = true;
 		for(i=0;i<kleuren;i++){
 			zet[0]= i;
+      for(j=0;j<gaatjes;j++){
+        str += to_string(zet[j]);
+      }
+      if(cons(str,aantal)){
+
+      }
 			cout << zet[0] << zet[1] << zet[2] << endl;
 			//doezet();
 		}
@@ -281,18 +292,18 @@ bool ongoing = true, check = true;
 				if(zet[j] < kleuren - 1) {
 					zet[j]++;
 					check = false;
-				
+
 				} else {
 						 if(j < gaatjes - 1) {
 							j++;
-			
+
 							}
-						 
+
 						 else {check = false; ongoing = false; zet.clear(); }
-		 
+
 	}
 }
-   
+
 
 }
 
@@ -303,28 +314,42 @@ bool ongoing = true, check = true;
 //****************************************************************************
 
 
-bool Mastermind::witCheck () {
+
+int Mastermind::roodCheck(string str,string test){
+  int i,teller = 0
+  for(i=0;i<gaatjes;i++){
+    if(str[i]==test[i]){
+      teller++;
+    }
+  }
+  return teller;
+
+}
+
+int Mastermind::witCheck (string str,string test) {
 vector<int> opslag;
-string zet, test;
 opslag.push_back(-1);
 bool erin = false;
 int teller = 0;
 int j,i,k;
 	for (i = 0; i < 2; i++) {
 		for (j = 0; j < 2; j++) {
-		if (zet[i] == test[j]){ 
+		if (str[i] == test[j]){
 			for(k=0;k<=teller;k++){
        if (opslag[k] == zet[i])
-			   j=0;k=teller;erin = true;
+			   j=0;
+         k=teller;
+         erin = true;
 }
 			if(erin){
-				opslag[teller] = zet[i];teller++;
+				opslag[teller] = str[i];
+        teller++;
 				erin = false;
-		}		
-	
-	} 
+		}
+
+	}
 }
-cout << " " 
+return teller;
 
 }
 }
