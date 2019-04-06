@@ -77,6 +77,7 @@ class Mastermind
     int kleuren, gaatjes, rijen;
     string code;
     vector<string> guess;
+    vector<vector<int> > zetten;
     vector<int> wit, rood;
 
 

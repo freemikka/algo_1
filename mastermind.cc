@@ -108,19 +108,39 @@ int Mastermind::optimalegok (bool consistent, int &aantalstanden,
                              char optgok[MaxNrGaatjes+1])
 {
   // TODO: implementeer deze methode
-	vector<int> wit_, rood_;
-	int i,j;
-	for (i = 0; i < gaatjes; i++) {
-		rood_.push_back(i);
-		for (j = 0; j < kleuren; ++j) {
-			wit_.push_back (j);
-			//if (cons (zet) )
-			wit_.clear();
-		}
-	rood_.clear();
-	}
+  int ranRood,ranWit;
+  int teller;
+  string strZet1,strZet2,besteGok;
+  int aantalmax=-1,aantalmin=-1;
+	doezet();
+  for (i = 0; i < gaatjes; i++) {
 
-	witCheck ();
+		for (j = 0; j < kleuren; ++j) {
+			if(i+j <= gaatjes){
+      for(l = 0; l < zetten.size(); l++){
+      for(k = 0; k < zetten.size(); k++){
+      if(l != k){
+      strZet1 = to_string(zetten[l]);
+      strZet2 = to_string(zetten[k]);
+			ranRood = roodCheck(strZet1,strZet2);
+      ranWit = witCheck(strZet1,strZet2);
+      if(ranRood == i && ranWit == j){
+        teller++
+      }
+    }
+  }
+
+    if(aantalmax < teller || aantalmax = -1){
+      aantalmax = teller;
+    }
+    else if(aantalmin > teller || aantalmin = -1){
+      aantalmin = teller;
+      besteGok = to_string(zetten[l]);
+    }
+  }
+    }
+		}
+	}
   return 0;
 
 }  // optimalegok
@@ -267,8 +287,10 @@ int Mastermind::mogelijkheden (int rood_aantal) {
 
 void Mastermind::doezet () {
 string str;
+int wit_,rood_;
 int i, j, aantal;
 vector<int> zet;
+vector<int> temp;
 bool ongoing = true, check = true;
 
 	for (int k = 0; k < gaatjes; k++) zet.push_back(0); //gaatjes is 3 zet[0] = 0, zet[1] = 0, zet[2] = 0;
@@ -277,13 +299,16 @@ bool ongoing = true, check = true;
 		check = true;
 		for(i=0;i<kleuren;i++){
 			zet[0]= i;
+      str = to_string(zet);
+      wit_ = witCheck(str,guess.back());
+      rood_ = roodCheck(str,guess.back());
+      if(rood_ == rood.back() && wit_ == wit.back()){
       for(j=0;j<gaatjes;j++){
-        str += to_string(zet[j]);
+        temp.push_back(zet[j]);
       }
-      if(cons(str,aantal)){
-
-      }
-			cout << zet[0] << zet[1] << zet[2] << endl;
+      zetten.push_back(temp);
+      temp.clear
+    }
 			//doezet();
 		}
 			j = 1;
@@ -334,7 +359,7 @@ int teller = 0;
 int j,i,k;
 	for (i = 0; i < 2; i++) {
 		for (j = 0; j < 2; j++) {
-		if (str[i] == test[j]){
+		if (str[i] == test[j] && str[j] != test[j]){
 			for(k=0;k<=teller;k++){
        if (opslag[k] == zet[i])
 			   j=0;
