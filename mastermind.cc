@@ -115,10 +115,10 @@ int Mastermind::optimalegok (bool consistent, int &aantalstanden,
   cout << "1::::1" << endl;
 	doezet();
   cout << "2::::2" << endl;
+  for(l = 0; l < zetten.size(); l++){
   for (i = 0; i < gaatjes; i++) {
 		for (j = 0; j < kleuren; ++j) {
 			if(i+j <= gaatjes){
-        for(l = 0; l < zetten.size(); l++){
           for(k = 0; k < zetten.size(); k++){
             if(l != k){
               strZet1 = stringify(zetten[l]);
@@ -134,10 +134,6 @@ int Mastermind::optimalegok (bool consistent, int &aantalstanden,
 
       if(aantalmax < teller || aantalmax == -1){
         aantalmax = teller;
-      }
-      else if(aantalmin > teller || aantalmin == -1){
-        aantalmin = teller;
-        besteGok = stringify(zetten[l]);
       }
     }
       }
