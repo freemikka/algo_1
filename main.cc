@@ -42,8 +42,9 @@ void doespel (Mastermind *m1)
                         // resultaat) als we optimale gok uitvoeren
       maxaantalcodes;   // maximum aantal mogelijke codes (bij een zo slecht
                         // mogelijk resultaat) als we goede gok uitvoeren
-  char gok[MaxNrGaatjes+1],
-       optgok[MaxNrGaatjes+1];
+  char gok[MaxNrGaatjes+1];
+
+  string optgok = "";
   string goedegok = "";
   bool consistent;
   clock_t t1, t2;
@@ -183,7 +184,7 @@ void hoofdmenu ()
 int main ()
 {
 
-
+  hoofdmenu();
   return 0;
 
 }

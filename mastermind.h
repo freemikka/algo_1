@@ -60,7 +60,7 @@ class Mastermind
     // Retourneer:
     // * minimale aantal gokken/stappen om code te raden, in slechtste geval
     int optimalegok (bool consistent, int &aantalstanden,
-                     char optgok[MaxNrGaatjes+1]);
+                    string &optgok);
 
     // Bepaal, uitgaande van de huidige stand, een goede gok:
     // een gok die het aantal nog mogelijke codes minimaliseert,
@@ -101,6 +101,7 @@ class Mastermind
 
     int mogelijkheden (int rood_aantal);
 		void doezet ();
+    string stringify (std::vector<int> v);
 
 };
 
