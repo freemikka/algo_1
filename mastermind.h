@@ -78,7 +78,12 @@ class Mastermind
     string code;
     vector<string> guess;
     vector<string> zetten;
-    vector<int> wit, rood;
+    vector<int> wit, rood, position, kleurtjes;
+
+    bool notIn(int el, vector<int> seen);
+    int aantalwit (string rijtje, string test);
+    int notPosition (int index, int index2);
+
 
 
 
@@ -90,7 +95,6 @@ class Mastermind
 
     // Deze functie vult de rode en witte pinnen in.
     int aantalrood (string rijtje, string test);
-    int aantalwit (string rijtje, string test);
     int roodCheck(string str,string test);
     int witCheck (string str,string test);
     // Helper functie van aantaljuist.

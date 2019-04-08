@@ -122,10 +122,7 @@ int Mastermind::goedegok(bool consistent, string &optgok)
     return 0;
   }
   int ranRood, ranWit, aantalmax = -1,aantalmin = -1;
-  cout << "1::::1" << endl;
 	doezet(consistent);
-  cout << "2::::2" << endl;
-  cout << zetten.size() << "hierrrrrrrrrrrrrrrrrr" << endl;
   for(l = 0; l < zetten.size(); l++){
   for (i = 0; i < gaatjes; i++) {
 		for (j = 0; j < kleuren; ++j) {
@@ -252,6 +249,7 @@ int aantalrood = 0;
   for (unsigned int i = 0; i < rijtje.length (); i++) {
     if (rijtje[i] == test[i]) {
       aantalrood++;
+      position.push_back (i);
     }
   }
   return aantalrood;
@@ -260,23 +258,38 @@ int aantalrood = 0;
 //*************************************************************************
 
 int Mastermind::aantalwit (string rijtje, string test) {
-int aantalwit = 0;
-  for (int j = 0; j < kleuren; j++) {
-    //if j elemnt of rijtje && elem of code then wit++
-    if(elementOf (rijtje, j) > 0 && elementOf (test, j) > 0) aantalwit++;
+  int aantal = 0;
+  for (int i = 0; i < gaatjes; i++) {
+    for (int j = 0; j < gaatjes; j++) {
+      if (rijtje[i] == test[j] && notIn(rijtje[i], kleurtjes) && notPosition(i, j)) {
+        cout << "bij deze gepushed " << rijtje[i] << " "<< j << endl;
+        aantal++;
+        kleurtjes.push_back(rijtje[i]);
+      }
+    }
   }
-  if(rood.back() == gaatjes) return 0;
-  return aantalwit-rood.back();
+  position.clear();
+  kleurtjes.clear();
+  return aantal;
 }
 
 //*************************************************************************
 
-int Mastermind::elementOf (string test, int elem) {
-  int aantal = 0;
-  for (unsigned int i = 0; i < test.length (); i++) {
-    if (test[i] - '0' == elem) aantal++;
+int Mastermind::notPosition (int index, int index2) {
+  for (int i = 0; i < position.size(); i++) {
+    if (index == position[i] || index2 == position[i]) return false;
   }
-  return aantal;
+
+  return true;
+}
+
+
+bool Mastermind::notIn(int el, vector<int> seen) {
+  unsigned int i;
+  for (i = 0; i < seen.size(); ++i) {
+    if(el == seen[i] || seen.size() == 0) return false;
+  }
+  return true;
 }
 
 //*************************************************************************
