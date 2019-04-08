@@ -102,11 +102,15 @@ void Mastermind::doegok (string nwrijtje)
 
 //*************************************************************************
 /*
-int goedegok(bool consistent, string &optgok): genereert een goede gok voor mastermind.
-strZet1,strZet2: de zetten van de vector zetten. beide strings worden gebruikt in witCheck en roodCheck.
+int goedegok(bool consistent, string &optgok):
+genereert een goede gok voor mastermind.
+strZet1,strZet2: de zetten van de vector zetten.
+  beide strings worden gebruikt in witCheck en roodCheck.
 BesteGok: string voor de beste gok.
-ranRood,ranWit: de resultaten tussen de zetten in vector zetten (aantal rode/witte pinnen).
-aantalmax,aantalmin: aantalmax pakt de hoogste aantal codes van de zet. aantalmin pakt de laagste aantalmax van alle zetten.
+ranRood,ranWit: de resultaten tussen de zetten in vector zetten
+(aantal rode/witte pinnen).
+aantalmax,aantalmin: aantalmax pakt de hoogste aantal codes van de zet.
+aantalmin pakt de laagste aantalmax van alle zetten.
 */
 int Mastermind::goedegok(bool consistent, string &optgok)
 {
@@ -149,7 +153,8 @@ int Mastermind::goedegok(bool consistent, string &optgok)
         }
       }
   	}
-    if((aantalmin > aantalmax || aantalmin == -1) && aantalmax != -1 && zetten[l] != guess[guess.size()-1]){
+    if((aantalmin > aantalmax || aantalmin == -1)
+      && aantalmax != -1 && zetten[l] != guess[guess.size()-1]){
         aantalmin = aantalmax;
         besteGok = zetten[l];
       }
@@ -163,11 +168,15 @@ int Mastermind::goedegok(bool consistent, string &optgok)
 
 //*************************************************************************
 /*
-int Mastermind::optimalegok(bool consistent, int &aantalstanden, string &optgok): genereert een optimale gok voor mastermind.
-strZet1,strZet2: de zetten van de vector zetten. beide strings worden gebruikt in witCheck en roodCheck.
+optimalegok(bool consistent, int &aantalstanden, string &optgok):
+genereert een optimale gok voor mastermind.
+strZet1,strZet2: de zetten van de vector zetten.
+beide strings worden gebruikt in witCheck en roodCheck.
 BesteGok: string voor de beste gok.
-ranRood,ranWit: de resultaten tussen de zetten in vector zetten (aantal rode/witte pinnen).
-aantalmax,aantalmin: aantalmax pakt de hoogste aantal codes van de zet. aantalmin pakt de laagste aantalmax van alle zetten.
+ranRood,ranWit: de resultaten tussen de zetten in vector zetten
+(aantal rode/witte pinnen).
+aantalmax,aantalmin: aantalmax pakt de hoogste aantal codes van de zet.
+aantalmin pakt de laagste aantalmax van alle zetten.
 */
 int Mastermind::optimalegok(bool consistent, int &aantalstanden, string &optgok)
 {
@@ -188,42 +197,42 @@ int Mastermind::optimalegok(bool consistent, int &aantalstanden, string &optgok)
   int ranRood, ranWit, aantalmax = -1,aantalmin = -1;
   doezet(consistent);
   for(l = 0; l < zetten.size(); l++){
-  for (i = 0; i < gaatjes; i++) {
-		for (j = 0; j < kleuren; ++j) {
-			if(i+j <= gaatjes){
-          for(k = 0; k < zetten.size(); k++){
-            if(l != k){
-              strZet1 = zetten[l];
-              //strZet1 = to_string(zetten[l]);
-              strZet2 = zetten[k];
-            ranRood = roodCheck(strZet1,strZet2);
-              ranWit = witCheck(strZet1,strZet2);
-              if(ranRood == i && ranWit == j){
-                if(aantalstanden != rijen){
-                aantalstanden++;
-                teller = optimalegok(consistent,aantalstanden,optgok);
-                }
-                else{
-                aantalstanden--;
-                return 0;
-                }
-          }
+    for (i = 0; i < gaatjes; i++) {
+  		for (j = 0; j < kleuren; ++j) {
+  			if(i+j <= gaatjes){
+            for(k = 0; k < zetten.size(); k++){
+              if(l != k){
+                strZet1 = zetten[l];
+                strZet2 = zetten[k];
+                ranRood = roodCheck(strZet1,strZet2);
+                ranWit = witCheck(strZet1,strZet2);
+                if(ranRood == i && ranWit == j){
+                  if(aantalstanden != rijen){
+                  aantalstanden++;
+                  teller = optimalegok(consistent,aantalstanden,optgok);
+                  }
+                  else {
+                  aantalstanden--;
+                  return aantalstanden;
+                  }
+            }
+        }
       }
-    }
 
-      if(aantalmax < teller || aantalmax == -1){
-        aantalmax = teller;
+        if(aantalmax < teller || aantalmax == -1){
+          aantalmax = teller;
+        }
       }
     }
+  }
+      if((aantalmin > aantalmax || aantalmin == -1)
+        && aantalmax != -1 && zetten[l] != guess[guess.size()-1]) {
+        aantalmin = aantalmax;
+        besteGok = zetten[l];
       }
-		}
-    if((aantalmin > aantalmax || aantalmin == -1) && aantalmax != -1 && zetten[l] != guess[guess.size()-1]){
-      aantalmin = aantalmax;
-      besteGok = zetten[l];
-    }
-    optgok = besteGok;
-    return teller+1;
-    aantalmax = -1;
+      optgok = besteGok;
+      return teller+1;
+      aantalmax = -1;
 	}
   optgok = besteGok;
   return zetten.size();
@@ -266,7 +275,8 @@ int Mastermind::aantalwit (string rijtje, string test) {
   int aantal = 0;
   for (int i = 0; i < gaatjes; i++) {
     for (int j = 0; j < gaatjes; j++) {
-      if (rijtje[i] == test[j] && notIn(rijtje[i], kleurtjes) && notPosition(i, j)) {
+      if (rijtje[i] == test[j]
+          && notIn(rijtje[i], kleurtjes) && notPosition(i, j)) {
         aantal++;
         kleurtjes.push_back(rijtje[i]);
       }
@@ -298,11 +308,15 @@ bool Mastermind::notIn(int el, vector<int> seen) {
 
 //*************************************************************************
 /*
-void Mastermind::doezet (bool consistent): genereert zetten voor vector zetten die mogelijk zijn voor optimale/goede gok.
-str,zet: gebruikt om alle zetten op te slaan in een tijdelijke string of vector<int>.
-witter,rooder: worden de aantal witte/rode pinnen opgeslagen tussen vorige zetten en alle mogelijke zetten.
+void Mastermind::doezet (bool consistent):
+genereert zetten voor vector zetten die mogelijk zijn voor optimale/goede gok.
+str,zet: gebruikt om alle zetten op te slaan in
+een tijdelijke string of vector<int>.
+witter,rooder: worden de aantal witte/rode pinnen opgeslagen
+tussen vorige zetten en alle mogelijke zetten.
 ongoing,check: zorgt ervoor dat alle zetten geprobeerd worden.
-kann: kijkt of een zet wel mogelijk is (oftewel niet consistent bij consistent = true of zet niet eerder gebruikt is etc)
+kann: kijkt of een zet wel mogelijk is (oftewel niet consistent bij
+consistent = true of zet niet eerder gebruikt is etc)
 */
 void Mastermind::doezet (bool consistent) {
 zetten.clear();
@@ -313,20 +327,22 @@ int witter,rooder;
 vector<int> zet;
 bool ongoing = true, check = true,kann = true;
 
-for (k = 0; k < gaatjes; k++) zet.push_back(0); //gaatjes is 3 zet[0] = 0, zet[1] = 0, zet[2] = 0;
+for (k = 0; k < gaatjes; k++) zet.push_back(0);
 
 while(ongoing){
  check = true;
  for(i = 0; i < kleuren; i++) {
   zet[0]= i;
       str = stringify(zet);
-// als consistent, checkt de functie alle resultaten inplaats van alleen maar de vorige resultaat.
+// als consistent, checkt de functie alle resultaten
+// inplaats van alleen maar de vorige resultaat.
       if(consistent){
         for(l=1;l<=guess.size();l++){
             witter = witCheck(str,guess[guess.size()-l]);
             rooder = roodCheck(str,guess[guess.size()-l]);
 
-            if(rood[rood.size()-l] != rooder || wit[wit.size()-l] != witter || str == guess[guess.size()-l]){
+            if(rood[rood.size()-l] != rooder
+              || wit[wit.size()-l] != witter || str == guess[guess.size()-l]){
                 kann = false;
             }
         }
@@ -375,7 +391,8 @@ while(ongoing){
 //****************************************************************************
 
 /*
-int roodCheck(string str,string test): kijkt naar de twee codes str en test, vervolgens returned aantal rode pinnen voor de twee strings.
+int roodCheck(string str,string test): kijkt naar de twee codes str en test,
+vervolgens returned aantal rode pinnen voor de twee strings.
 teller: telt aantal rode pinnen.
 */
 int Mastermind::roodCheck(string str,string test){
@@ -391,10 +408,14 @@ int Mastermind::roodCheck(string str,string test){
 
 //*************************************************************************
 /*
-int witCheck(string str,string test): kijkt naar de twee codes str en test, vervolgens returned aantal witte pinnen voor de twee strings.
-opslag: als een kleur al gespot is wordt die in opslag opgeslagen, als dezelfde kleur weer wordt gezien zal die niet opgeteld worden bij witte pinnen.
+int witCheck(string str,string test): kijkt naar de twee codes str en test,
+vervolgens returned aantal witte pinnen voor de twee strings.
+opslag: als een kleur al gespot is wordt die in opslag opgeslagen,
+als dezelfde kleur weer wordt gezien zal die niet
+opgeteld worden bij witte pinnen.
 teller,minteller: tellen aantal witte pinnen.
-erin: of een kleur al in opslag zit, zo niet wordt de kleur in opslag gestopt en teller++.
+erin: of een kleur al in opslag zit, zo niet wordt de kleur in
+opslag gestopt en teller++.
 */
 int Mastermind::witCheck (string str,string test) {
 vector<char> opslag;
@@ -413,7 +434,7 @@ int j,i,k;
 		for (j = 0; j < gaatjes ; j++) {
 		if (str[i] == test[j] && str[j] != test[j] && str[i] != test[i]){
 			for(k=0;k<=teller;k++){
-       if (opslag[k] == str[i]) { // was eerst zet[i][i] heb hier maar zetten van gemaakt not sure wat dit doet.
+       if (opslag[k] == str[i]) {
          k=teller;
          erin = true;
        }

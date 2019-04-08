@@ -151,7 +151,7 @@ void doeexperimenten ()
         m2 -> setcode (code);
         t1 = clock ();
         while(rijteller != aantalrijen && !m2->eindstand()){
-        m2-> optimalegok (consistent, aantalstanden, optgok);
+        cout << m2-> optimalegok (consistent, aantalstanden, optgok) << endl;
         m2->doegok (optgok);
         m2->drukaf ();
         rijteller++;
