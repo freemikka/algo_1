@@ -77,7 +77,7 @@ class Mastermind
     int kleuren, gaatjes, rijen;
     string code;
     vector<string> guess;
-    vector<vector<int> > zetten;
+    vector<string> zetten;
     vector<int> wit, rood;
 
 
@@ -100,7 +100,7 @@ class Mastermind
     bool cons (string zet, int &aantal);
 
     int mogelijkheden (int rood_aantal);
-		void doezet ();
+		void doezet (bool consistent);
     string stringify (std::vector<int> v);
 
 };

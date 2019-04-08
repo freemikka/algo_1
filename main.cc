@@ -122,7 +122,38 @@ void doespel (Mastermind *m1)
 void doeexperimenten ()
 {
   // TODO: implementeer deze functie
-
+    Mastermind *m2;
+    int keuze,maxaantalgokken,aantalstanden = 0;
+    string optgok = "";
+    string goedegok = "";
+    string code;
+    bool consistent = true;
+    int rijteller,aantalrijen;
+    cout << endl;
+    cout << "1. Experiment 1" << endl;
+    cout << "Maak een keuze:";
+    cin >> keuze;
+    switch (keuze)
+    {
+    case 1:
+        rijteller = 0;
+        aantalrijen = 4;
+        m2 = new Mastermind(3,3,aantalrijen);
+        cout << "geheime code:"
+        cin >> code;
+        m2 -> setcode (code);
+        while(rijteller != aantalrijen && !m2->eindstand()){
+        maxaantalgokken = m2-> optimalegok (consistent, aantalstanden, optgok);
+        m2->doegok (optgok);
+        m2->drukaf ();
+        }
+        if(m2->eindstand()){
+            cout << "eindstand" << endl;
+        }
+        else if(rijteller == aantalrijen){
+            cout << "maxaantalrijen" << endl;
+        }
+    }
 }  // doeexperimenten
 
 //*************************************************************************
