@@ -118,9 +118,126 @@ void doespel (Mastermind *m1)
 
 //*************************************************************************
 
-void doeexperimenten() {
-  cout << "";
-}
+void doeexperimenten ()
+{
+  // TODO: implementeer deze functie
+    Mastermind *m2;
+    int keuze,aantalstanden = 0;
+    string optgok = "";
+    string goedegok = "";
+    char code[MaxNrGaatjes+1];
+    bool consistent = true;
+    int rijteller,aantalrijen, i, j;
+    cout << endl;
+    cout << "1. Experiment 1 - niet consistent" << endl;
+    cout << "2. Experiment 1 - consistent" << endl;
+    cout << "3. Experiment 2 - niet consistent" << endl;
+    cout << "4. Experiment 2 - consistent" << endl;
+    cout << "5. Experiment 3 - niet consistent" << endl;
+    cout << "6. Experiment 3 - consistent" << endl;
+    cout << "7. Experiment 4 - consistent" << endl;
+    cout << "Maak een keuze:";
+    cin >> keuze;
+    clock_t t1, t2;
+    switch (keuze)
+    {
+    case 1:
+    case 2:
+        consistent = (keuze==2);
+        rijteller = 0;
+        aantalrijen = 4;
+        m2 = new Mastermind(3,3,aantalrijen);
+        cout << "geheime code:";
+        cin >> code;
+        m2 -> setcode (code);
+        t1 = clock ();
+        while(rijteller != aantalrijen && !m2->eindstand()){
+        m2-> optimalegok (consistent, aantalstanden, optgok);
+        m2->doegok (optgok);
+        m2->drukaf ();
+        rijteller++;
+        }
+        if(m2->eindstand()){
+            m2->eindstand();
+        }
+        else if(rijteller == aantalrijen){
+            cout << "maxaantalrijen" << endl;
+        }
+        t2 = clock ();
+        cout << "Dit kostte " << (t2-t1) << " clock ticks, ofwel "
+               << (((double)(t2-t1))/CLOCKS_PER_SEC) << " seconden." << endl;
+        break;
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+        consistent = (keuze==4 || keuze==6);
+        rijteller = 0;
+        aantalrijen = 10;
+        m2 = new Mastermind(6,4,aantalrijen);
+        if(keuze == 3 || keuze == 4){
+        cout << "geheime code:";
+        cin >> code;
+        m2 -> setcode (code);
+        }
+        else{
+        code[0] = '1';
+        code[1] = '0';
+        code[2] = '2';
+        code[3] = '5';
+        m2 -> setcode(code);
+        }
+        t1 = clock ();
+        while(rijteller != aantalrijen && !m2->eindstand()){
+        m2-> goedegok (consistent, goedegok);
+        m2->doegok (goedegok);
+        m2->drukaf ();
+        rijteller++;
+        }
+        if(m2->eindstand()){
+            m2->eindstand();
+        }
+        else if(rijteller == aantalrijen){
+            cout << "maxaantalrijen" << endl;
+        }
+        t2 = clock ();
+        cout << "Dit kostte " << (t2-t1) << " clock ticks, ofwel "
+               << (((double)(t2-t1))/CLOCKS_PER_SEC) << " seconden." << endl;
+        break;
+
+    case 7:
+        consistent = true;
+        for(i =1; i < 10; i++){
+            for(j=1 ; j < 10; j++){
+        rijteller = 0;
+        aantalrijen = 5;
+        m2 = new Mastermind(i,j,aantalrijen);
+        cout << "geheime code:";
+        cin >> code;
+        m2 -> setcode (code);
+        t1 = clock ();
+        while(rijteller != aantalrijen && !m2->eindstand()){
+        m2-> optimalegok (consistent, aantalstanden, optgok);
+        m2->doegok (optgok);
+        m2->drukaf ();
+        rijteller++;
+        }
+        if(m2->eindstand()){
+            m2->eindstand();
+        }
+        else if(rijteller == aantalrijen){
+            cout << "maxaantalrijen" << endl;
+        }
+        t2 = clock ();
+        cout << "Dit kostte " << (t2-t1) << " clock ticks, ofwel "
+               << (((double)(t2-t1))/CLOCKS_PER_SEC) << " seconden." << endl;
+
+            }
+        }
+        break;
+    }
+}  // doeexperimenten
+
 
 //*************************************************************************
 

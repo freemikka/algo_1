@@ -178,10 +178,7 @@ int Mastermind::optimalegok(bool consistent, int &aantalstanden, string &optgok)
   }
 
   int ranRood, ranWit, aantalmax = -1,aantalmin = -1;
-  cout << "1::::1" << endl;
-    doezet(consistent);
-  cout << "2::::2" << endl;
-  cout << zetten.size() << "hierrrrrrrrrrrrrrrrrr" << endl;
+  doezet(consistent);
   for(l = 0; l < zetten.size(); l++){
   for (i = 0; i < gaatjes; i++) {
 		for (j = 0; j < kleuren; ++j) {
@@ -262,7 +259,6 @@ int Mastermind::aantalwit (string rijtje, string test) {
   for (int i = 0; i < gaatjes; i++) {
     for (int j = 0; j < gaatjes; j++) {
       if (rijtje[i] == test[j] && notIn(rijtje[i], kleurtjes) && notPosition(i, j)) {
-        cout << "bij deze gepushed " << rijtje[i] << " "<< j << endl;
         aantal++;
         kleurtjes.push_back(rijtje[i]);
       }
@@ -276,7 +272,7 @@ int Mastermind::aantalwit (string rijtje, string test) {
 //*************************************************************************
 
 int Mastermind::notPosition (int index, int index2) {
-  for (int i = 0; i < position.size(); i++) {
+  for (unsigned int i = 0; i < position.size(); i++) {
     if (index == position[i] || index2 == position[i]) return false;
   }
 
@@ -294,33 +290,6 @@ bool Mastermind::notIn(int el, vector<int> seen) {
 
 //*************************************************************************
 
-bool Mastermind::cons (string zet, int &aantal) {
-  unsigned int i, j, k;
-  int wit_,rood_;
-  std::vector<int> whites, reds;
-  for (i = 0; i < guess.size (); i++) {
-    if (zet == guess[i]) return false;
-  }
-for(k=0; k< guess.size(); k++){
-
-	for (i = 0; i < gaatjes; i++) {
-		reds.push_back(i);
-		for (j = 0; j < kleuren; ++j) {
-			whites.push_back (j);
-			rood_ = roodCheck(zet,guess[k]);
-      wit_ = witCheck(zet,guess[k]);
-
-			whites.clear();
-		}
-	reds.clear();
-	}
-}
-  if (rood_ != wit_ ) cout << "Geen warning pls" << endl;
-  return true;
-}
-
-//*************************************************************************
-
 int Mastermind::mogelijkheden (int rood_aantal) {
   //formule = aantal kleuren ^  (max gaatjes - aantal rode gaatjes dat de gok heeft opgevuld)
 
@@ -332,7 +301,8 @@ int Mastermind::mogelijkheden (int rood_aantal) {
 void Mastermind::doezet (bool consistent) {
 zetten.clear();
 string str = "";
-int i, l, j, k = 0;
+int i, j, k = 0;
+unsigned int l;
 int witter,rooder;
 vector<int> zet;
 bool ongoing = true, check = true,kann = true;
@@ -344,16 +314,12 @@ while(ongoing){
  for(i = 0; i < kleuren; i++) {
   zet[0]= i;
       str = stringify(zet);
-      cout << "str: " << str << endl;
+
       if(consistent){
         for(l=1;l<=guess.size();l++){
             witter = witCheck(str,guess[guess.size()-l]);
             rooder = roodCheck(str,guess[guess.size()-l]);
-            cout << guess[guess.size()-l] << endl;
-            cout << rood[rood.size()-l] << endl;
-      cout << wit[wit.size()-l] << endl;
-      cout << rooder << endl;
-      cout << witter << endl;
+
             if(rood[rood.size()-l] != rooder || wit[wit.size()-l] != witter || str == guess[guess.size()-l]){
                 kann = false;
             }
@@ -365,12 +331,8 @@ while(ongoing){
       }
       else{
       witter = witCheck(str,guess[guess.size()-1]);
-      cout << guess[guess.size()-1] << endl;
       rooder = roodCheck(str,guess[guess.size()-1]);
-      cout << rood[rood.size()-1] << endl;
-      cout << wit[wit.size()-1] << endl;
-      cout << rooder << endl;
-      cout << witter << endl;
+
       if(rood[rood.size()-1] == rooder && wit[wit.size()-1] == witter){
         for(l=1;l<=guess.size();l++){
             if(str == guess[guess.size()-l]){
@@ -442,7 +404,6 @@ int j,i,k;
        }
      }
 			if(!erin){
-                cout << str[i] << endl;
 				opslag.push_back(str[i]);
                 teller++;
 		    }
