@@ -117,10 +117,9 @@ void doespel (Mastermind *m1)
 }  // doespel
 
 //*************************************************************************
-
+// Experimenten voor mastermind.
 void doeexperimenten ()
 {
-  // TODO: implementeer deze functie
     Mastermind *m2;
     int keuze,aantalstanden = 0;
     string optgok = "";
