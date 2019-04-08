@@ -76,19 +76,14 @@ class Mastermind
   private:
     int kleuren, gaatjes, rijen;
     string code;
-    vector<string> guess;
-    vector<string> zetten;
+    vector<string> guess, zetten;
+    //witte pins, rode pins, hulpVectoren voor het bepalen hoeveel witte pins
     vector<int> wit, rood, position, kleurtjes;
 
-    bool notIn(int el, vector<int> seen);
+    //Deze functie checkt hoeveel witte pinnen er ingevuld moeten woden
     int aantalwit (string rijtje, string test);
     int notPosition (int index, int index2);
-
-
-
-
-
-
+    bool notIn(int el, vector<int> seen);
     // Controleerd of de code geldig is
     // Retourneerd true als er de code correct ingevoerd is.
     bool geldigeGok (string rijtje);
@@ -99,11 +94,6 @@ class Mastermind
     int witCheck (string str,string test);
     // Helper functie van aantaljuist.
     // checkt of een element in de string zit.
-    int elementOf (string test, int elem);
-
-    bool cons (string zet, int &aantal);
-
-    int mogelijkheden (int rood_aantal);
 		void doezet (bool consistent);
     string stringify (std::vector<int> v);
 

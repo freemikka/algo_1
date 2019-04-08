@@ -34,7 +34,6 @@ Mastermind::Mastermind (int nwnrkleuren, int nwnrgaatjes,
 
 Mastermind::~Mastermind ()
 {
-  // TODO: implementeer, indien van toepassing, deze destructor
 
 }  // Destructor.
 
@@ -70,7 +69,6 @@ void Mastermind::drukaf ()
 
 bool Mastermind::eindstand ()
 {
-  // TODO: implementeer deze methode
   if (guess.size () < 1) return false;
   if (rood[guess.size() - 1] == gaatjes) {
     return true;
@@ -106,12 +104,12 @@ void Mastermind::doegok (string nwrijtje)
 
 int Mastermind::goedegok(bool consistent, string &optgok)
 {
-  // TODO: implementeer deze methode
   string strZet1,strZet2, besteGok = "";
   int teller = 0, i, j;
   unsigned int l, k;
+  vector<int> zet;
+  //Random zet maken in het geval dat er geen begintoestand is
   if(guess.size() == 0){
-    vector<int> zet;
     for(i=0;i<gaatjes;i++){
         j = i % kleuren;
         zet.push_back(j);
@@ -123,33 +121,33 @@ int Mastermind::goedegok(bool consistent, string &optgok)
   int ranRood, ranWit, aantalmax = -1,aantalmin = -1;
 	doezet(consistent);
   for(l = 0; l < zetten.size(); l++){
-  for (i = 0; i < gaatjes; i++) {
-		for (j = 0; j < kleuren; ++j) {
-			if(i+j <= gaatjes){
-          for(k = 0; k < zetten.size(); k++){
-            if(l != k){
-              strZet1 = zetten[l];
-              //strZet1 = to_string(zetten[l]);
-              strZet2 = zetten[k];
-            ranRood = roodCheck(strZet1,strZet2);
-              ranWit = witCheck(strZet1,strZet2);
-              if(ranRood == i && ranWit == j){
-                teller++;
-          }
-      }
-    }
+    for (i = 0; i < gaatjes; i++) {
+  		for (j = 0; j < kleuren; ++j) {
+  			if(i+j <= gaatjes){
+            for(k = 0; k < zetten.size(); k++){
+              if(l != k){
+                strZet1 = zetten[l];
+                strZet2 = zetten[k];
+                ranRood = roodCheck(strZet1,strZet2);
+                ranWit = witCheck(strZet1,strZet2);
+                if(ranRood == i && ranWit == j){
+                  teller++;
+                }
+              }
+            }
 
-      if(aantalmax < teller || aantalmax == -1){
-        aantalmax = teller;
+        if(aantalmax < teller || aantalmax == -1){
+          aantalmax = teller;
+        }
+
+        }
       }
-    }
-      }
-		}
+  	}
     if((aantalmin > aantalmax || aantalmin == -1) && aantalmax != -1 && zetten[l] != guess[guess.size()-1]){
-      aantalmin = aantalmax;
-      besteGok = zetten[l];
-    }
-    aantalmax = -1;
+        aantalmin = aantalmax;
+        besteGok = zetten[l];
+      }
+      aantalmax = -1;
 	}
   optgok = besteGok;
 
@@ -288,14 +286,6 @@ bool Mastermind::notIn(int el, vector<int> seen) {
 
 //*************************************************************************
 
-int Mastermind::mogelijkheden (int rood_aantal) {
-  //formule = aantal kleuren ^  (max gaatjes - aantal rode gaatjes dat de gok heeft opgevuld)
-
-  return pow (kleuren, gaatjes - rood_aantal);
-}
-
-
-
 void Mastermind::doezet (bool consistent) {
 zetten.clear();
 string str = "";
@@ -379,6 +369,8 @@ int Mastermind::roodCheck(string str,string test){
 
 }
 
+//*************************************************************************
+
 int Mastermind::witCheck (string str,string test) {
 vector<char> opslag;
 opslag.push_back('E');
@@ -415,6 +407,8 @@ teller -= minteller;
 opslag.clear();
 return teller;
 }
+
+//*************************************************************************
 
 string Mastermind::stringify (std::vector<int> v) {
   unsigned int i;
