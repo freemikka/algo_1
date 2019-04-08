@@ -154,7 +154,7 @@ int Mastermind::goedegok(bool consistent, string &optgok)
 	}
   optgok = besteGok;
 
-  return 0;
+  return zetten.size();
 
 }  // optimalegok
 
@@ -218,7 +218,7 @@ int Mastermind::optimalegok(bool consistent, int &aantalstanden, string &optgok)
     aantalmax = -1;
 	}
   optgok = besteGok;
-  return 0;
+  return zetten.size();
 
 }  // goedegok
 
