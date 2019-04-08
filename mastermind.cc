@@ -114,7 +114,6 @@ int Mastermind::goedegok(bool consistent, string &optgok)
     vector<int> zet;
     for(i=0;i<gaatjes;i++){
         j = i % kleuren;
-        cout << j << endl;
         zet.push_back(j);
     }
     optgok = stringify(zet);
@@ -170,7 +169,6 @@ int Mastermind::optimalegok(bool consistent, int &aantalstanden, string &optgok)
     vector<int> zet;
     for(i=0;i<gaatjes;i++){
         j = i % kleuren;
-        cout << j << endl;
         zet.push_back(j);
     }
     optgok = stringify(zet);
